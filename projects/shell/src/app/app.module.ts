@@ -13,6 +13,7 @@ import { MatListModule } from '@angular/material/list';
 import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
 import { loadRemoteModule } from '@angular-architects/module-federation-runtime';
+import { AuthModule } from '@auth0/auth0-angular';
 
 @NgModule({
   imports: [
@@ -24,6 +25,10 @@ import { loadRemoteModule } from '@angular-architects/module-federation-runtime'
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    AuthModule.forRoot({
+      domain: 'dev-ha-6vf7s.us.auth0.com',
+      clientId: 'pQXuZGn3bfOfHpFd9ch7Wfa4xP4KhKlS'
+    }),
     RouterModule.forRoot([
       {
         path: '',

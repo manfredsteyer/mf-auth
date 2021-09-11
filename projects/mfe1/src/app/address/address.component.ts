@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '@auth0/auth0-angular';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-address',
@@ -85,7 +87,18 @@ export class AddressComponent {
     {name: 'Wyoming', abbreviation: 'WY'}
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private auth: AuthService,
+    private fb: FormBuilder) {
+
+      this.auth.user$.pipe(take(1)).subscribe(user => {
+        if (!user) return;
+        this.addressForm.controls['firstName'].setValue(user.given_name);
+        this.addressForm.controls['lastName'].setValue(user.family_name);
+
+      });
+
+    }
 
   onSubmit(): void {
     alert('Thanks!');
